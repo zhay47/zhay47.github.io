@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Social Network</title>
     <style>
+        /* CSS styles here */
+
         /* Reset CSS */
         * {
             box-sizing: border-box;
@@ -18,12 +20,8 @@
             background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: 0;
+            padding: 0;
         }
 
         header {
@@ -31,6 +29,12 @@
             color: #fff;
             padding: 20px 0;
             text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
         }
 
         nav ul {
@@ -51,14 +55,21 @@
         }
 
         main {
-            padding: 20px 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        footer {
-            background-color: #343a40;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
         }
 
         /* Form styles */
@@ -66,15 +77,15 @@
             margin-bottom: 20px;
         }
 
-        form label {
+        label {
             display: block;
             margin-bottom: 5px;
         }
 
-        form input[type="text"],
-        form input[type="email"],
-        form input[type="password"],
-        form textarea {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -82,7 +93,7 @@
             border-radius: 5px;
         }
 
-        form button {
+        button {
             background-color: #343a40;
             color: #fff;
             padding: 10px 20px;
@@ -92,21 +103,8 @@
             transition: background-color 0.3s ease;
         }
 
-        form button:hover {
+        button:hover {
             background-color: #555;
-        }
-
-        /* Section styles */
-        section {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        section h2 {
-            margin-bottom: 20px;
         }
 
         /* Posts section */
@@ -135,17 +133,27 @@
     </style>
 </head>
 <body>
-     <header>
-        <h1>Volt</h1>
+    <header>
+        <h1>My Social Network</h1>
         <nav>
             <ul>
-                <li><a href="./">Home</a></li>
+                <li><a href="./index">Home</a></li>
                 <li><a href="./ideas">Submit Ideas</a></li>
                 <li><a href="./contact">Contact Us</a></li>
             </ul>
         </nav>
     </header>
     <main>
+        <section id="login-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="login-username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
         <section id="register-section">
             <h2>Register</h2>
             <form id="register-form">
@@ -156,16 +164,6 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 <button type="submit">Register</button>
-            </form>
-        </section>
-        <section id="login-section">
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="login-username">Username:</label>
-                <input type="text" id="login-username" name="login-username" required>
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" name="login-password" required>
-                <button type="submit">Login</button>
             </form>
         </section>
         <section id="posts-section">
@@ -179,6 +177,47 @@
             </div>
         </section>
     </main>
-    <script src="script.js"></script>
+
+    <script>
+        // Login form submission
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            // Get username and password from the form
+            var username = document.getElementById("login-username").value;
+            var password = document.getElementById("login-password").value;
+
+            // Here you can perform login authentication using AJAX or fetch
+            // For demonstration purposes, let's just log the credentials to the console
+            console.log("Login Username:", username);
+            console.log("Login Password:", password);
+        });
+
+        // Register form submission
+        document.getElementById("register-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            // Get form data
+            var formData = new FormData(this);
+
+            // Here you can perform registration using AJAX or fetch
+            // For demonstration purposes, let's just log the form data to the console
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+        });
+
+        // Post form submission
+        document.getElementById("post-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            // Get post content
+            var postContent = document.getElementById("post-content").value;
+
+            // Here you can handle posting the content to the server using AJAX or fetch
+            // For demonstration purposes, let's just log the post content to the console
+            console.log("Post Content:", postContent);
+        });
+    </script>
 </body>
 </html>
