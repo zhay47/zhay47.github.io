@@ -25,11 +25,15 @@
         }
 
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             background-color: #343a40;
             color: #fff;
             padding: 20px 0;
             text-align: center;
-            margin-bottom: 20px;
+            z-index: 1000; /* Ensure header is above other content */
         }
 
         h1 {
@@ -55,7 +59,7 @@
         }
 
         main {
-            padding: 20px;
+            padding: 80px 20px 20px; /* Adjust padding to accommodate fixed header */
             max-width: 800px;
             margin: 0 auto;
         }
@@ -130,6 +134,30 @@
             font-size: 0.8em;
             color: #777;
         }
+
+        /* Account dropdown */
+        .account-dropdown {
+            position: absolute;
+            top: 60px; /* Adjust this value according to header height */
+            right: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            display: none; /* Initially hidden */
+            z-index: 1000; /* Ensure dropdown is above other content */
+        }
+
+        .account-dropdown a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+
+        .account-dropdown a:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -139,9 +167,14 @@
             <ul>
                 <li><a href="./index">Home</a></li>
                 <li><a href="./ideas">Submit Ideas</a></li>
-                <li><a href="./contact">Contact Us</a></li>
+                <li id="account-link"><a href="#">Account</a></li>
             </ul>
         </nav>
+        <div class="account-dropdown" id="account-dropdown">
+            <a href="#">Profile</a>
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+        </div>
     </header>
     <main>
         <section id="login-section">
@@ -179,44 +212,59 @@
     </main>
 
     <script>
-        // Login form submission
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form from submitting
+        document.addEventListener("DOMContentLoaded", function() {
+            var accountLink = document.getElementById("account-link");
+            var accountDropdown = document.getElementById("account-dropdown");
 
-            // Get username and password from the form
-            var username = document.getElementById("login-username").value;
-            var password = document.getElementById("login-password").value;
+            // Show account dropdown on click
+            accountLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                if (accountDropdown.style.display === "block") {
+                    accountDropdown.style.display = "none";
+                } else {
+                    accountDropdown.style.display = "block";
+                }
+            });
 
-            // Here you can perform login authentication using AJAX or fetch
-            // For demonstration purposes, let's just log the credentials to the console
-            console.log("Login Username:", username);
-            console.log("Login Password:", password);
-        });
+            // Login form submission
+            document.getElementById("login-form").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent form from submitting
 
-        // Register form submission
-        document.getElementById("register-form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form from submitting
+                // Get username and password from the form
+                var username = document.getElementById("login-username").value;
+                var password = document.getElementById("login-password").value;
 
-            // Get form data
-            var formData = new FormData(this);
+                // Here you can perform login authentication using AJAX or fetch
+                // For demonstration purposes, let's just log the credentials to the console
+                console.log("Login Username:", username);
+                console.log("Login Password:", password);
+            });
 
-            // Here you can perform registration using AJAX or fetch
-            // For demonstration purposes, let's just log the form data to the console
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-        });
+            // Register form submission
+            document.getElementById("register-form").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent form from submitting
 
-        // Post form submission
-        document.getElementById("post-form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form from submitting
+                // Get form data
+                var formData = new FormData(this);
 
-            // Get post content
-            var postContent = document.getElementById("post-content").value;
+                // Here you can perform registration using AJAX or fetch
+                // For demonstration purposes, let's just log the form data to the console
+                for (var pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+            });
 
-            // Here you can handle posting the content to the server using AJAX or fetch
-            // For demonstration purposes, let's just log the post content to the console
-            console.log("Post Content:", postContent);
+            // Post form submission
+            document.getElementById("post-form").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent form from submitting
+
+                // Get post content
+                var postContent = document.getElementById("post-content").value;
+
+                // Here you can handle posting the content to the server using AJAX or fetch
+                // For demonstration purposes, let's just log the post content to the console
+                console.log("Post Content:", postContent);
+            });
         });
     </script>
 </body>
